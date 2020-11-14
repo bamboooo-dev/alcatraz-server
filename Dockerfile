@@ -1,7 +1,7 @@
 FROM ruby:2.7.2
 
-RUN mkdir -p /alcatraz/api
-ENV APP_ROOT /alcatraz/api
+RUN mkdir /api
+ENV APP_ROOT /api
 
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev
 

@@ -1,24 +1,16 @@
-# README
+# Alcatraz Server
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Alcatraz のサーバーサイド用リポジトリです。
 
-Things you may want to cover:
+# dev サーバー
 
-* Ruby version
+[こちら](http://118.27.6.245:8000)にデプロイされています
 
-* System dependencies
+# 開発
 
-* Configuration
+ローカル開発環境のセットアップ
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+docker-compose up
+docker-compose exec api rails db:create
+```
