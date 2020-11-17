@@ -13,4 +13,5 @@ Alcatraz のサーバーサイド用リポジトリです。
 ```
 docker-compose up
 docker-compose exec api rails db:create
+docker-compose exec api ridgepole -c config/database.yml --apply -f db/Schemafile
 ```
