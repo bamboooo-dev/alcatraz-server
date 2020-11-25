@@ -11,6 +11,9 @@ Alcatraz のサーバーサイド用リポジトリです。
 ローカル開発環境のセットアップ
 
 ```
-docker-compose up
-docker-compose exec api rails db:create
+make up
+make db/create
+make db/apply
 ```
+
+http://localhost:8000 でアクセス
