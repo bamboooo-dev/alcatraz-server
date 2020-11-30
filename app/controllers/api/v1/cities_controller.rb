@@ -30,7 +30,7 @@ module Api
         if @city.update(city_params)
           render json: @city, status: :ok
         else
-          render json: @user.errors, status: :unprocessable_entity
+          render json: @city.errors, status: :unprocessable_entity
         end
       end
 
