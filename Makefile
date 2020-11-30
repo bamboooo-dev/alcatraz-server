@@ -1,20 +1,20 @@
 default:
 
 up:
-	docker-compose up
+	docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
 
 build:
-	docker-compose build
+	docker-compose -f docker-compose.yml -f docker-compose.dev.yml build
 
 down:
-	docker-compose down
+	docker-compose -f docker-compose.yml -f docker-compose.dev.yml down
 
 db/prepare:
-	docker-compose exec api rails db:prepare
+	docker-compose -f docker-compose.yml -f docker-compose.dev.yml exec api rails db:prepare
 	make db/apply
 	
 db/create:
-	docker-compose exec api rails db:create
+	docker-compose -f docker-compose.yml -f docker-compose.dev.yml exec api rails db:create
 
 db/apply:
-	docker-compose exec api ridgepole -c config/database.yml --apply -f db/Schemafile
+	docker-compose -f docker-compose.yml -f docker-compose.dev.yml exec api ridgepole -c config/database.yml --apply -f db/Schemafile
