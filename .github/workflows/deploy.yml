@@ -3,7 +3,7 @@ name: deploy
 on:
   push:
     branches:
-      - master
+      - feature/ci_cd
 
 jobs:
   build:
@@ -32,3 +32,5 @@ jobs:
         run: |
           docker-compose --context monaka stop
           docker-compose --context monaka up --build -d
+          docker-compose --context monaka exec api --user root rails db:prepare
+          docker-compose --context monaka exec api --user root ridgepole -c config/database.yml --apply -f db/Schemafile
