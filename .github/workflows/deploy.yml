@@ -1,0 +1,36 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - feature/ci_cd
+
+jobs:
+  build:
+    name: Set docker context and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          name: id_rsa
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set docker context
+        run: docker context create monaka --default-stack-orchestrator=swarm --docker "host=ssh://${SSH_USERNAME}@${SSH_IP}:${SSH_PORT}"
+        env:
+          SSH_USERNAME: yuya
+          SSH_IP: 118.27.6.245
+          SSH_PORT: 22
+
+      - name: Deploy
+        run: |
+          docker-compose --context monaka stop
+          docker-compose --context monaka up --build -d
+          docker-compose --context monaka exec api --user root rails db:prepare
+          docker-compose --context monaka exec api --user root ridgepole -c config/database.yml --apply -f db/Schemafile
